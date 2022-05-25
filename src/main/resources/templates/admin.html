@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+<div>
+    <table border="1">
+        <tr>
+            <th>Id</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Username</th>
+            <th>Roles</th>
+            <th>Edit</th>
+            <th>Detail</th>
+        </tr>
+        <tr th:each ="user : ${users}">
+            <td th:utext="${user.getId()}">...</td>
+            <td th:utext="${user.getName()}">...</td>
+            <td th:utext="${user.getLastName()}">...</td>
+            <td th:utext="${user.getUsername()}">...</td>
+            <td>
+                <div th:each="role : ${user.getRoles()}">
+                <div th:utext="${role.getName()}">...</div>
+                </div>
+            </td>
+            <td><a th:href="@{/admin/update/{id}(id=${user.getId()})}">update</a>
+                <a th:href="@{/admin/delete/{id}(id=${user.getId()})}">delete</a></td>
+            <td style="text-align:center"><a th:href="@{/admin/{id}(id=${user.getId()})}">...</a>
+        </tr>
+    </table>
+    <p><a href="/admin/save">Add user</a></p>
+    <p><a href="/">На главную</a></p>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+    </form>
+</div>
+</body>
+</html>
